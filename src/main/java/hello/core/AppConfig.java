@@ -29,28 +29,46 @@ public class AppConfig {
         return new OrderServiceImpl(new MemoryMemberRepository(), new fixDiscountPolicy());
     }*/
 
-    @Bean
+
     /*
         ApplicationContext(스프링 컨테이너)가 관리하는 bean으로 등록되는데 이 때 이름은 메소드명으로 관리되고
         인스턴스는 return되는 인스턴스가 반환된다.
         HashMap을 생각하면된다. key와 value로 매칭된다.
         key를 찾고 key에 대한 value를 반환받는다.
     */
+
+    /*
+    *  @Bean memberService -> new MemoryMemberRepository()
+    *  @Bean orderService ->  new MemoryMemberRepository(), new RateDiscountPolicy()
+     */
+
+    /*
+    * Call AppConfig.memberService
+    * Call AppConfig.memberRepository
+    * Call AppConfig.orderService
+    * Call AppConfig.memberRepository
+    * AppConfig.discountPolicy
+    * */
+    @Bean
     public MemberService memberService() {
+        System.out.println("Call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
     public MemberRepository memberRepository() {
+        System.out.println("Call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService() {
+        System.out.println("Call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
     @Bean
     public DiscountPolicy discountPolicy() {
+        System.out.println("AppConfig.discountPolicy");
 //        return new fixDiscountPolicy();
         return new RateDiscountPolicy();
     }
