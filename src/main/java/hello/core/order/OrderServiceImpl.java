@@ -6,7 +6,11 @@ import hello.core.discount.fixDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements OrderService {
     /*
     * SRP(Single Responsibility Principle) 위배, 마치 배우가 다른배우를 섭외하는 꼴(?)
@@ -23,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
     /*생성자를 통해서 외부에서 memberRepository에 구현체를 주입 ==> 생성자주입
     , DIP 원칙을 위배하지 않음, 추상화에만 의존하고 구체화에는 의존하지 않는다.
     */
+    /*@Autowired*/
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;

@@ -1,5 +1,10 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+/*@Component("memberService2") 처럼 bean의 이름을 지정해서 등록할 수 있다.*/
 public class MemberServiceImpl implements MemberService {
 
     /*다형성을 이용해서 MemberRepository 인터페이스에 구현체를 주입해줌
@@ -14,6 +19,7 @@ public class MemberServiceImpl implements MemberService {
     /*생성자를 통해서 외부에서 memberRepository에 구현체를 주입 ==> 생성자주입
     , DIP 원칙을 위배하지 않음, 추상화에만 의존하고 구체화에는 의존하지 않는다.
     */
+    @Autowired // ac.getBean(MemberRepository.class 처럼 동작함)
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
